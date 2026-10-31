@@ -31,7 +31,6 @@
             font-family: 'Montserrat', sans-serif;
             color: var(--text-light);
             background-color: var(--black-marble);
-            /* Фон: Чёрный мрамор с золотыми прожилками и блестящими локонами */
             background-image: 
                 radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.15), transparent 40%),
                 radial-gradient(circle at 80% 70%, rgba(170, 124, 17, 0.1), transparent 50%),
@@ -143,8 +142,8 @@
         }
 
         .main-logo-circle {
-            width: 220px;
-            height: 220px;
+            width: 240px;
+            height: 240px;
             border-radius: 50%;
             border: 3px solid var(--gold-primary);
             box-shadow: 0 0 30px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(0,0,0,0.8);
@@ -456,11 +455,6 @@
             border-color: var(--gold-primary);
         }
 
-        /* Личный кабинет мастера */
-        .admin-dashboard {
-            display: none;
-        }
-
         .admin-section {
             background: var(--card-bg);
             border: 1px solid var(--border-gold);
@@ -489,8 +483,8 @@
     <!-- Шапка -->
     <header>
         <a href="#" class="header-logo">
-            <img id="header-logo-img" src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=150&q=80" alt="Логотип">
-            <span class="header-logo-text">БЕУШЕВА HAIR</span>
+            <img id="header-logo-img" src="буквы белые.png" alt="Анастасия Беушева">
+            <span class="header-logo-text">АНАСТАСИЯ БЕУШЕВА</span>
         </a>
         <div class="nav-actions">
             <button class="btn-outline" onclick="openAdminModal()"><i class="fa-solid fa-lock"></i> Кабинет</button>
@@ -498,10 +492,10 @@
         </div>
     </header>
 
-    <!-- Главная секция -->
+    <!-- Главный баннер -->
     <div class="hero">
         <div class="main-logo-circle">
-            <img id="main-logo-img" src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=400&q=80" alt="Анастасия Беушева">
+            <img id="main-logo-img" src="логотип цветной для сайта.png" alt="Анастасия Беушева">
         </div>
         <h1>АНАСТАСИЯ БЕУШЕВА</h1>
         <p>Студия реконструкции и профессионального ухода за волосами</p>
@@ -512,7 +506,7 @@
     <section>
         <h2 class="section-title">Услуги Студии</h2>
         <div class="services-grid" id="services-cards-container">
-            <!-- Динамически заменяется -->
+            <!-- Динамически загружается из JS -->
         </div>
     </section>
 
@@ -616,7 +610,6 @@
     </div>
 
     <script>
-        // Исходные данные услуг
         let defaultServices = [
             { name: "Кератиновое выпрямление", desc: "Идеальное выпрямление и зеркальный блеск до 6 месяцев", price: "от 3 500 ₽" },
             { name: "Ботокс для волос", desc: "Глубокое питание, разглаживание и уплотнение структуры", price: "от 3 000 ₽" },
@@ -638,7 +631,6 @@
             priceContainer.innerHTML = '';
 
             services.forEach(s => {
-                // Карточка
                 cardsContainer.innerHTML += `
                     <div class="service-card">
                         <h3>${s.name}</h3>
@@ -648,7 +640,6 @@
                     </div>
                 `;
 
-                // Строка в прайсе
                 priceContainer.innerHTML += `
                     <div class="price-item">
                         <span class="price-name">${s.name}</span>
@@ -658,7 +649,6 @@
             });
         }
 
-        // Модальные окна
         function openAdminModal() {
             document.getElementById('login-modal').style.display = 'flex';
         }
@@ -716,7 +706,6 @@
             alert('Услуги и цены успешно обновлены!');
         }
 
-        // Инициализация
         document.addEventListener('DOMContentLoaded', () => {
             renderSiteServices();
         });
