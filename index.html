@@ -291,45 +291,100 @@
             color: var(--gold-light);
         }
 
-        /* Галерея */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+        /* Лента результатов (карусель по категориям) */
+        .portfolio-category {
+            margin-bottom: 40px;
         }
 
-        .gallery-item {
-            border-radius: 12px;
+        .portfolio-category h3 {
+            font-size: 1.4rem;
+            color: var(--gold-light);
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid var(--gold-primary);
+        }
+
+        .portfolio-slider {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            scroll-snap-type: x mandatory;
+            scrollbar-color: var(--gold-primary) rgba(255,255,255,0.05);
+            scrollbar-width: thin;
+        }
+
+        .portfolio-slider::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .portfolio-slider::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+
+        .portfolio-slider::-webkit-scrollbar-thumb {
+            background: var(--gold-primary);
+            border-radius: 10px;
+        }
+
+        .portfolio-card {
+            min-width: 280px;
+            max-width: 280px;
+            height: 340px;
+            flex-shrink: 0;
+            border-radius: 14px;
             overflow: hidden;
             border: 1px solid var(--border-gold);
-            height: 320px;
+            background: var(--card-bg);
+            scroll-snap-align: start;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
         }
 
-        .gallery-item img {
+        .portfolio-card img {
             width: 100%;
-            height: 100%;
+            height: 260px;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
 
-        .gallery-item:hover img {
+        .portfolio-card:hover img {
             transform: scale(1.05);
         }
 
-        /* Видео */
-        .video-container {
-            max-width: 800px;
-            margin: 0 auto;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 2px solid var(--border-gold);
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
-            background: #000;
+        .portfolio-card-title {
+            padding: 12px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            background: rgba(10, 10, 14, 0.95);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .video-container video {
-            width: 100%;
-            display: block;
+        /* Управление фото в админке */
+        .admin-gallery-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            gap: 10px;
+        }
+
+        .admin-gallery-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 6px;
         }
 
         /* Отзывы */
@@ -487,13 +542,14 @@
             font-size: 0.9rem;
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 12px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-gold);
             border-radius: 8px;
             color: #fff;
+            font-family: inherit;
         }
 
         .admin-section {
@@ -531,7 +587,7 @@
     <!-- Шапка -->
     <header>
         <a href="#" class="header-logo">
-            <img id="header-logo-img" src="bukvi bel 2.png" alt="Студия ухода за волосами">
+            <img id="header-logo-img" src="bukvi bel.png" alt="Студия ухода за волосами">
             <span class="header-logo-text">Студия ухода за волосами</span>
         </a>
         <div class="nav-actions">
@@ -581,23 +637,11 @@
         </div>
     </section>
 
-    <!-- Работы -->
+    <!-- Результаты процедур по категориям (Лента) -->
     <section>
         <h2 class="section-title">Результаты Процедур</h2>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80" alt="Работа 1"></div>
-            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80" alt="Работа 2"></div>
-            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1560869713-7d0a29430803?auto=format&fit=crop&w=600&q=80" alt="Работа 3"></div>
-        </div>
-    </section>
-
-    <!-- Видео -->
-    <section>
-        <h2 class="section-title">Процесс Работы</h2>
-        <div class="video-container">
-            <video controls poster="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=800&q=80">
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-hairdresser-brushing-a-customers-hair-41246-large.mp4" type="video/mp4">
-            </video>
+        <div id="portfolio-categories-container">
+            <!-- Загружается из JS -->
         </div>
     </section>
 
@@ -669,13 +713,44 @@
         </div>
     </div>
 
-    <!-- Панель управления -->
+    <!-- Панель управления (Личный кабинет) -->
     <div class="modal" id="admin-dashboard-modal">
         <div class="modal-content" style="max-height: 90vh; overflow-y: auto;">
             <span class="close-modal" onclick="closeDashboard()">&times;</span>
-            <h2 class="brand-font" style="color: var(--gold-light); margin-bottom: 20px;">Редактирование Прайс-Листа</h2>
+            <h2 class="brand-font" style="color: var(--gold-light); margin-bottom: 20px;">Кабинет Мастера</h2>
             
+            <!-- Загрузка фото в ленту -->
             <div class="admin-section">
+                <h3 style="color: var(--gold-light); margin-bottom: 15px;">Добавить фото выполненной работы</h3>
+                <div class="form-group">
+                    <label>Выберите категорию процедуры</label>
+                    <select id="upload-category">
+                        <option value="Кератиновое выпрямление">Кератиновое выпрямление</option>
+                        <option value="Ботокс для волос">Ботокс для волос</option>
+                        <option value="Прикорневой объём">Прикорневой объём</option>
+                        <option value="Комбо: Ботокс + Объём">Комбо: Ботокс + Объём</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Описание / заголовок работы</label>
+                    <input type="text" id="upload-title" placeholder="Например: Идеальное выпрямление (До / После)">
+                </div>
+                <div class="form-group">
+                    <label>Выберите файл изображения</label>
+                    <input type="file" id="upload-file" accept="image/*">
+                </div>
+                <button onclick="addNewPortfolioPhoto()" class="btn-gold" style="width: 100%; justify-content: center;">Загрузить фото в ленту</button>
+            </div>
+
+            <!-- Список загруженных фото с кнопкой удаления -->
+            <div class="admin-section">
+                <h3 style="color: var(--gold-light); margin-bottom: 15px;">Управление фото в ленте</h3>
+                <div id="admin-photos-list"></div>
+            </div>
+
+            <!-- Редактирование цен -->
+            <div class="admin-section">
+                <h3 style="color: var(--gold-light); margin-bottom: 15px;">Редактирование Прайс-Листа</h3>
                 <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 10px; font-weight: bold; color: var(--gold-light); margin-bottom: 10px;">
                     <span>Услуга</span>
                     <span>До плеч</span>
@@ -696,9 +771,22 @@
             { name: "Комбо: Ботокс + Объём", time: "3 - 3.5 часа", desc: "Комплексный уход: гладкое блестящее полотно и стойкий пышный объём у корней", p1: "5 000 ₽", p2: "6 000 ₽", p3: "7 000 ₽" }
         ];
 
+        let defaultPortfolio = [
+            { id: 1, category: "Кератиновое выпрямление", title: "Идеальное выпрямление (До / После)", img: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80" },
+            { id: 2, category: "Кератиновое выпрямление", title: "Зеркальный блеск и гладкость", img: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80" },
+            { id: 3, category: "Ботокс для волос", title: "Восстановление структуры", img: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=600&q=80" },
+            { id: 4, category: "Прикорневой объём", title: "Естественный долговременный объём", img: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80" },
+            { id: 5, category: "Комбо: Ботокс + Объём", title: "Гладкое полотно + пышный объем", img: "https://images.unsplash.com/photo-1595476108010-b9d1f6cfaf12?auto=format&fit=crop&w=600&q=80" }
+        ];
+
         function loadServices() {
-            let saved = localStorage.getItem('beusheva_services_v4');
+            let saved = localStorage.getItem('beusheva_services_v6');
             return saved ? JSON.parse(saved) : defaultServices;
+        }
+
+        function loadPortfolio() {
+            let saved = localStorage.getItem('beusheva_portfolio_v6');
+            return saved ? JSON.parse(saved) : defaultPortfolio;
         }
 
         function renderSiteServices() {
@@ -730,6 +818,36 @@
             });
         }
 
+        function renderSitePortfolio() {
+            let portfolio = loadPortfolio();
+            let container = document.getElementById('portfolio-categories-container');
+            let categories = ["Кератиновое выпрямление", "Ботокс для волос", "Прикорневой объём", "Комбо: Ботокс + Объём"];
+
+            container.innerHTML = '';
+
+            categories.forEach(cat => {
+                let items = portfolio.filter(p => p.category === cat);
+                if (items.length > 0) {
+                    let itemsHtml = items.map(item => `
+                        <div class="portfolio-card">
+                            <img src="${item.img}" alt="${item.title}">
+                            <div class="portfolio-card-title">${item.title}</div>
+                        </div>
+                    `).join('');
+
+                    container.innerHTML += `
+                        <div class="portfolio-category">
+                            <h3>${cat}</h3>
+                            <div class="portfolio-slider">
+                                ${itemsHtml}
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        // Авторизация
         function openAdminModal() {
             document.getElementById('login-modal').style.display = 'flex';
         }
@@ -762,11 +880,13 @@
 
         function renderAdminDashboard() {
             let services = loadServices();
-            let container = document.getElementById('admin-services-list');
-            container.innerHTML = '';
+            let portfolio = loadPortfolio();
 
+            // Рендер редактирования прайса
+            let servicesContainer = document.getElementById('admin-services-list');
+            servicesContainer.innerHTML = '';
             services.forEach((s, idx) => {
-                container.innerHTML += `
+                servicesContainer.innerHTML += `
                     <div class="admin-price-row">
                         <input type="text" id="srv-name-${idx}" value="${s.name}">
                         <input type="text" id="srv-p1-${idx}" value="${s.p1}">
@@ -775,6 +895,62 @@
                     </div>
                 `;
             });
+
+            // Рендер списка загруженных фото
+            let photosContainer = document.getElementById('admin-photos-list');
+            photosContainer.innerHTML = '';
+            portfolio.forEach(item => {
+                photosContainer.innerHTML += `
+                    <div class="admin-gallery-item">
+                        <img src="${item.img}" alt="${item.title}">
+                        <div style="flex: 1; font-size: 0.85rem;">
+                            <strong>${item.category}</strong><br>
+                            <span style="color:#aaa;">${item.title}</span>
+                        </div>
+                        <button onclick="deletePortfolioPhoto(${item.id})" style="background: #a33; color:#fff; border:none; padding: 6px 12px; border-radius: 6px; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            });
+        }
+
+        function addNewPortfolioPhoto() {
+            let category = document.getElementById('upload-category').value;
+            let title = document.getElementById('upload-title').value || "Результат процедуры";
+            let fileInput = document.getElementById('upload-file');
+
+            if (!fileInput.files || !fileInput.files[0]) {
+                alert('Пожалуйста, выберите файл изображения!');
+                return;
+            }
+
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let portfolio = loadPortfolio();
+                let newPhoto = {
+                    id: Date.now(),
+                    category: category,
+                    title: title,
+                    img: e.target.result
+                };
+                portfolio.unshift(newPhoto);
+                localStorage.setItem('beusheva_portfolio_v6', JSON.stringify(portfolio));
+                
+                renderSitePortfolio();
+                renderAdminDashboard();
+                alert('Фотография успешно добавлена в ленту!');
+                document.getElementById('upload-title').value = '';
+                fileInput.value = '';
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        function deletePortfolioPhoto(id) {
+            if (confirm('Вы уверены, что хотите удалить это фото из ленты?')) {
+                let portfolio = loadPortfolio().filter(p => p.id !== id);
+                localStorage.setItem('beusheva_portfolio_v6', JSON.stringify(portfolio));
+                renderSitePortfolio();
+                renderAdminDashboard();
+            }
         }
 
         function saveServicesFromAdmin() {
@@ -786,7 +962,7 @@
                 s.p3 = document.getElementById(`srv-p3-${idx}`).value;
             });
 
-            localStorage.setItem('beusheva_services_v4', JSON.stringify(services));
+            localStorage.setItem('beusheva_services_v6', JSON.stringify(services));
             renderSiteServices();
             alert('Прайс-лист успешно обновлен!');
             closeDashboard();
@@ -794,6 +970,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             renderSiteServices();
+            renderSitePortfolio();
         });
     </script>
 </body>
