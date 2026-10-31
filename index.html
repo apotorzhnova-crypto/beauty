@@ -531,7 +531,7 @@
     <!-- Шапка -->
     <header>
         <a href="#" class="header-logo">
-            <img id="header-logo-img" src="лого буквы белые.png" alt="Студия ухода за волосами">
+            <img id="header-logo-img" src="bukvi bel.png" alt="Студия ухода за волосами">
             <span class="header-logo-text">Студия ухода за волосами</span>
         </a>
         <div class="nav-actions">
@@ -543,7 +543,7 @@
     <!-- Главный баннер -->
     <div class="hero">
         <div class="main-logo-circle">
-            <img id="main-logo-img" src="логотип цветной для сайта.png" alt="Анастасия Беушева">
+            <img id="main-logo-img" src="logo dly saita.png" alt="Анастасия Беушева">
         </div>
         <h1>АНАСТАСИЯ БЕУШЕВА</h1>
         <p>Студия реконструкции и профессионального ухода за волосами</p>
@@ -697,7 +697,7 @@
         ];
 
         function loadServices() {
-            let saved = localStorage.getItem('beusheva_services_v3');
+            let saved = localStorage.getItem('beusheva_services_v4');
             return saved ? JSON.parse(saved) : defaultServices;
         }
 
@@ -786,7 +786,7 @@
                 s.p3 = document.getElementById(`srv-p3-${idx}`).value;
             });
 
-            localStorage.setItem('beusheva_services_v3', JSON.stringify(services));
+            localStorage.setItem('beusheva_services_v4', JSON.stringify(services));
             renderSiteServices();
             alert('Прайс-лист успешно обновлен!');
             closeDashboard();
